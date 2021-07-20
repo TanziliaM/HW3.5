@@ -5,13 +5,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.Objects;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-
 public class SmartPhone extends Product {
     private String maker;
 
@@ -20,11 +17,15 @@ public class SmartPhone extends Product {
         this.maker = maker;
     }
 
+
     @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), maker);
+    public String toString() {
+        return "SmartPhone{" +
+                "maker='" + maker + '\'' +
+                '}';
     }
 }
+
 
 
 

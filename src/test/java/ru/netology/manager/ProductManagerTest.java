@@ -9,7 +9,6 @@ import ru.netology.repository.ProductRepository;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-
 class ProductManagerTest {
     private ProductRepository repository = new ProductRepository();
     private ProductManager manager = new ProductManager(repository);
@@ -24,6 +23,7 @@ class ProductManagerTest {
     Product product8 = new SmartPhone(8, "Eighth", 800, "Maker8");
     Product product9 = new SmartPhone(9, "Ninth", 900, "Maker9");
     Product product10 = new SmartPhone(10, "Tenth", 1000, "Maker10");
+    Product product11 = new SmartPhone(11, "Tenth", 1000, "Maker11");
 
     @BeforeEach
     void setUp() {
@@ -37,6 +37,7 @@ class ProductManagerTest {
         manager.addProduct(product8);
         manager.addProduct(product9);
         manager.addProduct(product10);
+        manager.addProduct(product11);
     }
     @Test
     void searchByMakerBook() {
@@ -72,13 +73,13 @@ class ProductManagerTest {
     void shouldRemoveById() {
         repository.removeById(7);
         Product[] actual = repository.findAll();
-        Product[] expected = new Product[]{product1, product2, product3, product4, product5, product6, product8, product9, product10};
+        Product[] expected = new Product[]{product1, product2, product3, product4, product5, product6, product8, product9, product10, product11};
         assertArrayEquals(expected, actual);
     }
 
     @Test
     void searchByInvalidMaker() {
-        Product[] actual = manager.searchBy("Maker11");
+        Product[] actual = manager.searchBy("Maker12");
         Product[] expected = {};
         assertArrayEquals(expected, actual);
     }
@@ -90,5 +91,11 @@ class ProductManagerTest {
         assertArrayEquals(expected, actual);
 
     }
+@Test
+    void searchSeveralProducts(){
+    Product[] actual = manager.searchBy("Tenth");
+    Product[] expected = {new SmartPhone(10, "Tenth", 1000, "Maker10"), new SmartPhone(11, "Tenth", 1000, "Maker11")};
+    assertArrayEquals(expected, actual);
 
+}
 }
